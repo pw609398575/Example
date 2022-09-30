@@ -1,0 +1,28 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/Default/GetList",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "UpstreamPathTemplate": "/GetList",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Default/GetModel?id={s1}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "UpstreamPathTemplate": "/GetModel?id={s1}",
+      "UpstreamHttpMethod": [ "Get" ]
+    }
+  ]
+}

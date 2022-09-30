@@ -1,0 +1,72 @@
+{
+  "ReRoutes": [
+
+    {
+      "DownstreamPathTemplate": "/swagger/v1/swagger.json",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/swagger/v1/swagger.json",
+      "UpstreamHttpMethod": [ "Get" ],
+      "ServiceName": "ProductService",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
+    },
+
+    {
+      "DownstreamPathTemplate": "/connect/token",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/token",
+      "UpstreamHttpMethod": [ "Post" ],
+      "Priority": 2
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/WeatherForecast/GetList",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "UpstreamPathTemplate": "/GetList",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Priority": 2,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "api",
+        "AllowedScopes": [ "testapi" ]
+      }
+    },
+
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "UpstreamPathTemplate": "/{everything}",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/WeatherForecast/GetModel?id={s1}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "UpstreamPathTemplate": "/GetModel?id={s1}",
+      "UpstreamHttpMethod": [ "Get" ]
+    }
+  ]
+}

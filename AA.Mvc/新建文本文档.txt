@@ -1,0 +1,7 @@
+https://www.bootwiki.com/note/dotnet-core-deploy-on-docker.html
+
+https://www.cnblogs.com/edisonchou/p/aspnetcore_on_docker_foundation.html
+
+https://mp.weixin.qq.com/s/JKSHf0gKk1rls_MY2RTkTQ
+
+
