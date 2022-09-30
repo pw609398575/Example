@@ -49,6 +49,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "大数据", "大数据", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "文档", "文档", "{98AE9104-7B9B-4CB2-952B-038CF9A997B0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "计算机视觉", "计算机视觉", "{98AE9104-7B9B-4CB2-952B-038CF9A987B0}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1F3D8379-D5ED-4FB9-A7A5-1CE560C9F8EA}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
@@ -104,7 +106,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "网关test", "网关test\�
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "认证", "IdentityServer\认证.csproj", "{27499F8D-EF76-44D4-B6CC-D6AD240CC3F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "多线程test", "多线程test\多线程test.csproj", "{D0A6BFE8-2C21-42E7-B4BA-28D4F3729BB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "多线程test", "多线程test\多线程test.csproj", "{D0A6BFE8-2C21-42E7-B4BA-28D4F3729BB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tess_API", "计算机视觉\Tess_API\Tess_API.csproj", "{68A726AE-CBF4-4450-AE75-7AB22C514DDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -216,6 +220,10 @@ Global
 		{D0A6BFE8-2C21-42E7-B4BA-28D4F3729BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0A6BFE8-2C21-42E7-B4BA-28D4F3729BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0A6BFE8-2C21-42E7-B4BA-28D4F3729BB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68A726AE-CBF4-4450-AE75-7AB22C514DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68A726AE-CBF4-4450-AE75-7AB22C514DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68A726AE-CBF4-4450-AE75-7AB22C514DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68A726AE-CBF4-4450-AE75-7AB22C514DDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -247,6 +255,7 @@ Global
 		{546C9224-E6FE-410A-BED8-DB18E9372300} = {89E8D546-A459-49B4-8C6C-EEB22F8BDA9F}
 		{27499F8D-EF76-44D4-B6CC-D6AD240CC3F8} = {89E8D546-A459-49B4-8C6C-EEB22F8BDA9F}
 		{D0A6BFE8-2C21-42E7-B4BA-28D4F3729BB3} = {FAC568E7-37C1-4E8D-9978-9C59DA97D2B1}
+		{68A726AE-CBF4-4450-AE75-7AB22C514DDB} = {98AE9104-7B9B-4CB2-952B-038CF9A987B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D38A9259-956E-4952-967E-3B6B7D9A3F1C}
