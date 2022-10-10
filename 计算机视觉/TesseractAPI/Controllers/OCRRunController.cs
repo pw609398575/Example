@@ -9,13 +9,10 @@ using Tess_API.Models;
 
 namespace Tess_API.Controllers
 {
-    /// <summary>
-    /// TesseractAPI调用入口
-    /// </summary>
     public class OCRRunController : ApiController
     {
         /// <summary>
-        /// 图片文字识别
+        /// 图形文字识别
         /// </summary>
         /// <param name="image_body"></param>
         /// <returns></returns>

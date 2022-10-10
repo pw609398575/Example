@@ -17,11 +17,7 @@ namespace Tess_API.Common
 {
     public class OCRHelper
     {
-        /// <summary>
-        /// 图片转Base64
-        /// </summary>
-        /// <param name="Imagefilename"></param>
-        /// <returns></returns>
+
         public static string ImgToBase64String(string Imagefilename)
         {
             try
@@ -41,11 +37,7 @@ namespace Tess_API.Common
                 return null;
             }
         }
-        /// <summary>
-        /// Base64转图片
-        /// </summary>
-        /// <param name="strbase64"></param>
-        /// <returns></returns>
+
         public static string Base64StringToImage(string strbase64)
         {
             string path = string.Empty;
@@ -63,10 +55,7 @@ namespace Tess_API.Common
             }
             return path;
         }
-        /// <summary>
-        /// 清空文件缓存
-        /// </summary>
-        /// <param name="Filepaths"></param>
+
         public static void ClearDirectory(List<string> Filepaths)
         {
             foreach (var path in Filepaths)
@@ -91,10 +80,7 @@ namespace Tess_API.Common
                 }
             }
         }
-        /// <summary>
-        /// 创建文件夹
-        /// </summary>
-        /// <param name="path"></param>
+
         public static void CreateDirectory(string path)
         {
             if (!Directory.Exists(path))
@@ -229,6 +215,7 @@ namespace Tess_API.Common
             }
             return JsonConvert.SerializeObject(root);
         }
+
 
     }
 }
