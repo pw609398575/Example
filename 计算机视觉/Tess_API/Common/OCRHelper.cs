@@ -10,6 +10,8 @@ using Tess_API.Models;
 using TesseractOCR.Enums;
 using TesseractOCR.Renderers;
 using TesseractOCR;
+using System.Collections;
+using System.Threading;
 
 namespace Tess_API.Common
 {
@@ -36,21 +38,22 @@ namespace Tess_API.Common
             }
         }
 
-        public static void Base64StringToImage(string strbase64, string save_path)
+        public static string Base64StringToImage(string strbase64)
         {
+            string path = string.Empty;
             try
-            {
-                CreateDirectory(@"./IdentifyingPicture");
-                CreateDirectory(@"./tessdata");
+            {                
                 byte[] arr = Convert.FromBase64String(strbase64);
                 MemoryStream ms = new MemoryStream(arr);
-                System.Drawing.Image img = System.Drawing.Image.FromStream(ms);                
-                img.Save(save_path, System.Drawing.Imaging.ImageFormat.Jpeg);
+                Image img = Image.FromStream(ms);
+                path = ".\\IdentifyingPicture\\" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+                img.Save(path , System.Drawing.Imaging.ImageFormat.Jpeg);
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
+            return path;
         }
 
         public static void ClearDirectory(List<string> Filepaths)
@@ -77,22 +80,12 @@ namespace Tess_API.Common
                 }
             }
         }
+
         public static void CreateDirectory(string path)
         {
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
-            }
-        }
-        public static void CreateDirectory(List<string> Filepaths)
-        {
-            foreach (var path in Filepaths)
-            {
-                DirectoryInfo dir = new DirectoryInfo(path);
-                if (!dir.Exists)
-                {
-                    dir.Create();
-                }
             }
         }
 
@@ -116,6 +109,7 @@ namespace Tess_API.Common
                 }
             }
         }
+
         /// <summary>
         /// 输出指定信息到文本文件
         /// </summary>
@@ -159,22 +153,21 @@ namespace Tess_API.Common
             //File.AppendAllText(".\\ResultBackUp\\log.txt", "\r\n" + msg + DateTime.Now);
         }
 
-        public static void RunTess(ImageUploadBody image_body, out string result)
+        public static string RunTess(ImageUploadBody image_body)
         {
             var stopWatch = new Stopwatch();
             ResultState root = new ResultState();
             root.results = new List<List<OCRResult>>();
             List<OCRResult> items = new List<OCRResult>();
             OCRResult item;
-            string file_name = DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
-            OCRHelper.Base64StringToImage(image_body.images.FirstOrDefault().ToString(), System.IO.Path.Combine(".\\IdentifyingPicture\\", file_name));
+            string file_name  = Base64StringToImage(image_body.images.FirstOrDefault().ToString());
 
             try
             {
                 stopWatch.Start();
                 using (var engine = new Engine(".\\tessdata\\", "eng", EngineMode.Default))
 {
-                    using (var img = TesseractOCR.Pix.Image.LoadFromFile(".\\IdentifyingPicture\\" + file_name))
+                    using (var img = TesseractOCR.Pix.Image.LoadFromFile(file_name))
                     {
                         stopWatch.Stop();
                         using (var page = engine.Process(img))
@@ -217,8 +210,9 @@ namespace Tess_API.Common
             {
                 throw;
             }
-            result = JsonConvert.SerializeObject(root);
+            return JsonConvert.SerializeObject(root);
         }
+
 
     }
 }
