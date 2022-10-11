@@ -15,9 +15,16 @@ using System.Threading;
 
 namespace Tess_API.Common
 {
+    /// <summary>
+    /// OCR使用帮助类
+    /// </summary>
     public class OCRHelper
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Imagefilename"></param>
+        /// <returns></returns>
         public static string ImgToBase64String(string Imagefilename)
         {
             try
@@ -37,7 +44,11 @@ namespace Tess_API.Common
                 return null;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="strbase64"></param>
+        /// <returns></returns>
         public static string Base64StringToImage(string strbase64)
         {
             string path = string.Empty;
@@ -55,7 +66,10 @@ namespace Tess_API.Common
             }
             return path;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Filepaths"></param>
         public static void ClearDirectory(List<string> Filepaths)
         {
             foreach (var path in Filepaths)
@@ -80,7 +94,10 @@ namespace Tess_API.Common
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
         public static void CreateDirectory(string path)
         {
             if (!Directory.Exists(path))

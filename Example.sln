@@ -110,8 +110,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "多线程test", "多线程t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesseractAPI", "计算机视觉\TesseractAPI\TesseractAPI.csproj", "{4F8F72DE-566D-45C1-838C-C25BEB93B848}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageReadUpLoad", "计算机视觉\ImageReadUpLoad\ImageReadUpLoad.csproj", "{AF41426D-2D92-4F1A-BEA1-0EEAFFA7014F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -226,10 +224,6 @@ Global
 		{4F8F72DE-566D-45C1-838C-C25BEB93B848}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F8F72DE-566D-45C1-838C-C25BEB93B848}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F8F72DE-566D-45C1-838C-C25BEB93B848}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF41426D-2D92-4F1A-BEA1-0EEAFFA7014F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF41426D-2D92-4F1A-BEA1-0EEAFFA7014F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF41426D-2D92-4F1A-BEA1-0EEAFFA7014F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF41426D-2D92-4F1A-BEA1-0EEAFFA7014F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -262,7 +256,6 @@ Global
 		{27499F8D-EF76-44D4-B6CC-D6AD240CC3F8} = {89E8D546-A459-49B4-8C6C-EEB22F8BDA9F}
 		{D0A6BFE8-2C21-42E7-B4BA-28D4F3729BB3} = {FAC568E7-37C1-4E8D-9978-9C59DA97D2B1}
 		{4F8F72DE-566D-45C1-838C-C25BEB93B848} = {98AE9104-7B9B-4CB2-952B-038CF9A987B0}
-		{AF41426D-2D92-4F1A-BEA1-0EEAFFA7014F} = {98AE9104-7B9B-4CB2-952B-038CF9A987B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D38A9259-956E-4952-967E-3B6B7D9A3F1C}
