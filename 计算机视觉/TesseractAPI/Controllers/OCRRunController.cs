@@ -9,6 +9,9 @@ using Tess_API.Models;
 
 namespace Tess_API.Controllers
 {
+    /// <summary>
+    /// OCR启动入口
+    /// </summary>
     public class OCRRunController : ApiController
     {
         /// <summary>
@@ -20,13 +23,21 @@ namespace Tess_API.Controllers
         public async Task<string> ImageRecognition([FromBody] ImageUploadBody image_body)
         {
             string results = string.Empty;
-            await Task.Run(() =>
+            try
             {
-                results = OCRHelper.RunTess(image_body);
-            });
-            await Task.Run(() => {
-                OCRHelper.WriteMessage(results);
-            });
+                await Task.Run(() =>
+                {
+                    results = OCRHelper.RunTess(image_body);
+                });
+                await Task.Run(() => {
+                    OCRHelper.WriteMessage(results);
+                });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }                       
             return results;
         }
     }

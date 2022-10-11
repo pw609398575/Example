@@ -12,6 +12,7 @@ using TesseractOCR.Renderers;
 using TesseractOCR;
 using System.Collections;
 using System.Threading;
+using System.Configuration;
 
 namespace Tess_API.Common
 {
@@ -20,52 +21,9 @@ namespace Tess_API.Common
     /// </summary>
     public class OCRHelper
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Imagefilename"></param>
-        /// <returns></returns>
-        public static string ImgToBase64String(string Imagefilename)
-        {
-            try
-            {
-                Bitmap bmp = new Bitmap(Imagefilename);
-
-                MemoryStream ms = new MemoryStream();
-                bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                byte[] arr = new byte[ms.Length];
-                ms.Position = 0;
-                ms.Read(arr, 0, (int)ms.Length);
-                ms.Close();
-                return Convert.ToBase64String(arr);
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="strbase64"></param>
-        /// <returns></returns>
-        public static string Base64StringToImage(string strbase64)
-        {
-            string path = string.Empty;
-            try
-            {                
-                byte[] arr = Convert.FromBase64String(strbase64);
-                MemoryStream ms = new MemoryStream(arr);
-                Image img = Image.FromStream(ms);
-                path = ".\\IdentifyingPicture\\" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
-                img.Save(path , System.Drawing.Imaging.ImageFormat.Jpeg);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return path;
-        }
+        private static string _webapi = ConfigurationManager.AppSettings["API"];
+        private static string _logpath = ConfigurationManager.AppSettings["LogPath"];
+        private static string _tessdatapath = ConfigurationManager.AppSettings["TessdataPath"];
         /// <summary>
         /// 
         /// </summary>
@@ -135,11 +93,13 @@ namespace Tess_API.Common
         {
             try
             {
-                //第一种方法，太麻烦了
                 StreamWriter sw = null;
-                if (!File.Exists("TesseractOCRlog.txt"))
+                CreateDirectory(_logpath);
+                string path = _logpath + DateTime.Now.ToString("yyyyMMdd") + ".txt";
+
+                if (!File.Exists(path))
                 {
-                    FileStream fs = new FileStream("TesseractOCRlog.txt", FileMode.Create, FileAccess.Write);
+                    FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
                     sw = new StreamWriter(fs);
                     sw.WriteLine(msg + DateTime.Now);
                     //记得要关闭！不然里面没有字！
@@ -148,22 +108,17 @@ namespace Tess_API.Common
                 }
                 else
                 {
-                    sw = File.AppendText("TesseractOCRlog.txt");
+                    sw = File.AppendText(path);
                     sw.WriteLine(msg + DateTime.Now);
                     sw.Close();
                     //MessageBox.Show("已经有log文件了!");
                 }
-
-                //第二种方法，比较简单
-                //\r\n要加在前面才会换行！
-                //File.AppendAllText(".\\ResultBackUp\\log.txt", "\r\n" + msg + DateTime.Now);
             }
             catch (Exception)
             {
 
                 throw;
             }
-
         }
         /// <summary>
         /// 运行TesseractOCR
@@ -177,17 +132,14 @@ namespace Tess_API.Common
             root.results = new List<List<OCRResult>>();
             List<OCRResult> items = new List<OCRResult>();
             OCRResult item;
-
-            string file_name  = Base64StringToImage(image_body.Images.FirstOrDefault().ToString());
-
             try
             {
                 stopWatch.Start();
-                using (var engine = new Engine(".\\tessdata\\", "eng", EngineMode.Default))
-{
-                    using (var img = TesseractOCR.Pix.Image.LoadFromFile(file_name))
-                    {
-                        stopWatch.Stop();
+                byte[] arr = Convert.FromBase64String(image_body.Images.FirstOrDefault().ToString());
+                using (var engine = new Engine(_tessdatapath, "eng", EngineMode.Default))
+                {
+                    using (var img = TesseractOCR.Pix.Image.LoadFromMemory(arr))
+                    {                       
                         using (var page = engine.Process(img))
                         {
                             foreach (var block in page.Layout)
@@ -213,10 +165,11 @@ namespace Tess_API.Common
                                             item.text = textLine.Text;
                                             item.text_region = region;
                                             items.Add(item);
-}
-}
-}
+                                        }
+                                    }
+                                }
                             }
+                            stopWatch.Stop();
                             root.msg = stopWatch.ElapsedMilliseconds.ToString() + "ms";
                             root.results.Add(items);
                             root.status = "000";
