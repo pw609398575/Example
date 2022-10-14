@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -20,25 +21,13 @@ namespace Tess_API.Controllers
         /// <param name="image_body"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> ImageRecognition([FromBody] ImageUploadBody image_body)
+        public string ImageRecognition([FromBody] ImageUploadBody image_body)
         {
-            string results = string.Empty;
-            try
+            Task<string> task = Task.Run<string>(() =>
             {
-                await Task.Run(() =>
-                {
-                    results = OCRHelper.RunTess(image_body);
-                });
-                await Task.Run(() => {
-                    OCRHelper.WriteMessage(results);
-                });
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }                       
-            return results;
+                return OCRHelper.RunTess(image_body);
+            });
+            return task.Result;
         }
     }
 }

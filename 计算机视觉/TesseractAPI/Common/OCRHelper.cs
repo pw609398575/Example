@@ -24,36 +24,9 @@ namespace Tess_API.Common
         private static string _webapi = ConfigurationManager.AppSettings["API"];
         private static string _logpath = ConfigurationManager.AppSettings["LogPath"];
         private static string _tessdatapath = ConfigurationManager.AppSettings["TessdataPath"];
+        private static string _language= ConfigurationManager.AppSettings["Language"];
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Filepaths"></param>
-        public static void ClearDirectory(List<string> Filepaths)
-        {
-            foreach (var path in Filepaths)
-            {
-                foreach (var item in Directory.GetFileSystemEntries(path))
-                {
-                    if (System.IO.File.Exists(item))
-                    {
-                        FileInfo fi = new FileInfo(item);
-                        if (fi.Attributes.ToString().IndexOf("ReadOnly") != -1)
-                        {
-                            fi.Attributes = FileAttributes.Normal;
-                        }
-                        var ft = File.GetCreationTime(item);
-                        var elapsedTicks = System.DateTime.Now.Ticks - ft.Ticks;
-                        var elaspsedSpan = new TimeSpan(elapsedTicks);
-                        if (elaspsedSpan.TotalSeconds > 10)
-                        {
-                            System.IO.File.Delete(item);
-                        }
-                    }
-                }
-            }
-        }
-        /// <summary>
-        /// 
+        /// 创建文件夹
         /// </summary>
         /// <param name="path"></param>
         public static void CreateDirectory(string path)
@@ -114,10 +87,9 @@ namespace Tess_API.Common
                     //MessageBox.Show("已经有log文件了!");
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                throw e;
             }
         }
         /// <summary>
@@ -136,7 +108,7 @@ namespace Tess_API.Common
             {
                 stopWatch.Start();
                 byte[] arr = Convert.FromBase64String(image_body.Images.FirstOrDefault().ToString());
-                using (var engine = new Engine(_tessdatapath, "eng", EngineMode.Default))
+                using (var engine = new Engine(_tessdatapath, _language, EngineMode.Default))
                 {
                     using (var img = TesseractOCR.Pix.Image.LoadFromMemory(arr))
                     {                       
@@ -185,7 +157,5 @@ namespace Tess_API.Common
             }
             return JsonConvert.SerializeObject(root);
         }
-
-
     }
 }
